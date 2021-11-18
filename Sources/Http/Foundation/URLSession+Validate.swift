@@ -1,10 +1,13 @@
 import Foundation
+import Combine
 
-public extension URLSession.DataTaskPublisher {
-    func validate() -> some Publisher {
-        tryMap {
-            try $0.response.validate()
-            return $0
+extension URLSession.DataTaskPublisher {
+    private typealias Output = URLSession.DataTaskPublisher.Output
+    
+    public func validate() -> some Publisher {
+        tryMap { output -> Output in
+            try output.response.validate()
+            return output
         }
     }
 }
