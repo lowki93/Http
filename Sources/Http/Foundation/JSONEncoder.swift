@@ -1,5 +1,5 @@
 import Foundation
 
-extension JSONEncoder: ContentType {
+extension JSONEncoder: DataContentEncoder {
     public var contentType: String { "application/json" }
 }
