@@ -1,16 +1,16 @@
 import Foundation
 
 public extension URLRequest {
-    func encodedBody<Encoder: TopLevelEncoder>(_ body: Encodable, encoder: Encoder) -> Self {
+    func encodedBody(_ body: Encodable, encoder: DataContentEncoder) throws -> Self {
         var request = self
         
-        request.encodeBody(body, encoder: encoder)
+        try request.encodeBody(body, encoder: encoder)
         
         return request
     }
     
-    mutating func encodeBody<Encoder: TopLevelEncoder>(_ body: Encodable, encoder: Encoder) {
-        httpBody = try encoder.encode(body)
+    mutating func encodeBody(_ body: Encodable, encoder: DataContentEncoder) throws {
+        httpBody = try body.encoded(with: encoder)
         setValue(encoder.contentType, forHTTPHeaderField: "Content-Type")
     }
 }
