@@ -1,14 +1,12 @@
 import Foundation
 
-public extension URLResponse {
-    /// check whether a response is valid or not
-    @objc
-    func validate() throws { }
-}
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
-public extension HTTPURLResponse {
-    @objc
-    override func validate() throws {
+extension HTTPURLResponse {
+    /// check whether a response is valid or not
+    public func validate() throws {
         guard (200..<300).contains(statusCode) else {
             throw HttpError(statusCode: statusCode)
         }

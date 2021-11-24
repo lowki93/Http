@@ -1,3 +1,5 @@
+#if canImport(Combine)
+
 import Foundation
 import Combine
 
@@ -6,8 +8,10 @@ extension URLSession.DataTaskPublisher {
     
     public func validate() -> some Publisher {
         tryMap { output -> Output in
-            try output.response.validate()
+            try (output.response as? HTTPURLResponse)?.validate()
             return output
         }
     }
 }
+
+#endif

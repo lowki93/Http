@@ -1,6 +1,10 @@
 import XCTest
 import Http
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 class URLResponseValidateTests: XCTest {
     let url = URL(string: "/")!
     

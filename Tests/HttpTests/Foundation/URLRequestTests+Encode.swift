@@ -1,6 +1,10 @@
 import XCTest
 import Http
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 class URLRequestEncodeTests: XCTest {
     
     func test_encodedBody_itSetContentTypeHeader() throws {

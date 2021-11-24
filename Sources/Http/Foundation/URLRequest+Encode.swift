@@ -1,5 +1,9 @@
 import Foundation
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 public extension URLRequest {
     func encodedBody(_ body: Encodable, encoder: DataContentEncoder) throws -> Self {
         var request = self
