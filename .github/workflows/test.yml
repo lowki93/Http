@@ -19,7 +19,7 @@ jobs:
     - name: Install swift
       uses: YOCKOW/Action-setup-swift@v1
       with:
-        swift-version: "5.3.3"
+        swift-version: "5.4.1"
 
     - name: Run tests
       run: swift test --enable-test-discovery
