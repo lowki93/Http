@@ -10,16 +10,11 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-18.04
+    runs-on: macos-11
 
     steps:
     - name: Checkout repo
       uses: actions/checkout@v2
-
-    - name: Install swift
-      uses: YOCKOW/Action-setup-swift@v1
-      with:
-        swift-version: "5.4.1"
 
     - name: Run tests
       run: swift test --enable-test-discovery
