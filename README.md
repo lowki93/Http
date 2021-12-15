@@ -39,3 +39,21 @@ A few words about Session:
 - `baseURL` will be prepended to all call endpoints
 - You can skip encoder and decoder if you use JSON
 - You can provide a custom `URLSession` instance if ever needed
+
+## Interceptor
+
+Protocol `Interceptor` enable powerful request interceptions. This include authentication, logging, request retrying, etc...
+
+### `RequestInterceptor`
+
+`RequestInterceptor` allow to adapt a or retry a request whenever it failed:
+
+- `adaptRequest` method is called before making a request and allow you to transform it adding headers, changing path, ...
+- `rescueRequestError` is called whenever the request fail. You'll have a chance to retry the request. This can be used to re-authenticate the user for instance
+
+### `ResponseInterceptor`
+
+`ResponseInterceptor` is dedicated to intercept and server responses:
+
+- `adaptResponse` change the server output
+- `receivedResponse` notify about the server final response (a valid output or error)
