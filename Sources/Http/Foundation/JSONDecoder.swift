@@ -1,5 +1,5 @@
 import Foundation
 
-extension JSONDecoder: DataContentDecoder {
-  public var contentType: String { "application/json" }
+extension JSONDecoder: ContentDataDecoder {
+    public static let contentType = ContentType.json
 }

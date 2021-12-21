@@ -5,7 +5,7 @@ import FoundationNetworking
 #endif
 
 extension Request {
-    func toURLRequest(base baseURL: URL, encoder: DataContentEncoder) throws -> URLRequest {
+    func toURLRequest(base baseURL: URL, encoder: ContentDataEncoder) throws -> URLRequest {
         var request = try URLRequest(url: url(for: baseURL))
         
         request.httpMethod = method.rawValue.uppercased()
@@ -15,7 +15,7 @@ extension Request {
         }
         
         for (header, value) in headers {
-            request.addValue(value, forHTTPHeaderField: header)
+            request.setHeader(header, value: value)
         }
         
         return request

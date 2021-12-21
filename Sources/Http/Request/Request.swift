@@ -14,15 +14,30 @@ public struct Request<Output> {
   public let path: String
   public let method: Method
   public let body: Encodable?
-  public var parameters: [String: String]
-  public var headers: [String: String] = [:]
+  public let parameters: [String: String]
+  public private(set) var headers: [Header: String] = [:]
 
   public static func get<Endpoint: Path>(_ path: Endpoint, parameters: [String: String] = [:]) -> Self {
     self.init(path: path, method: .get, parameters: parameters, body: nil)
   }
 
-  public static func post<Endpoint: Path>(_ path: Endpoint, body: Encodable?) -> Self {
-    self.init(path: path, method: .post, body: body)
+  public static func post<Endpoint: Path>(_ path: Endpoint, body: Encodable?, parameters: [String: String] = [:])
+  -> Self {
+    self.init(path: path, method: .post, parameters: parameters, body: body)
+  }
+
+  public static func put<Endpoint: Path>(_ path: Endpoint, body: Encodable, parameters: [String: String] = [:])
+  -> Self {
+    self.init(path: path, method: .put, parameters: parameters, body: body)
+  }
+
+  public static func delete<Endpoint: Path>(_ path: Endpoint, parameters: [String: String] = [:]) -> Self {
+    self.init(path: path, method: .delete, parameters: parameters, body: nil)
+  }
+
+  public mutating func headers(_ headers: [Header: String]) -> Self {
+    self.headers.merge(headers) { $1 }
+    return self
   }
 
   private init<Endpoint: Path>(path: Endpoint, method: Method, parameters: [String: String] = [:], body: Encodable?) {

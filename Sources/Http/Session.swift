@@ -10,8 +10,8 @@ public class Session {
     public typealias DataPublisher = AnyPublisher<Data, Error>
     
     let baseURL: URL
-    let encoder: DataContentEncoder
-    let decoder: DataContentDecoder
+    let encoder: ContentDataEncoder
+    let decoder: ContentDataDecoder
     let interceptor: Interceptor
     let httpErrorHandler: HTTPErrorHandler?
     let urlRequestPublisher: (URLRequest) -> DataPublisher
@@ -23,8 +23,8 @@ public class Session {
     /// - Parameter urlSession: `URLSession` instance to use to make requests. 
     public convenience init(
         baseURL: URL,
-        encoder: DataContentEncoder,
-        decoder: DataContentDecoder,
+        encoder: ContentDataEncoder,
+        decoder: ContentDataDecoder,
         interceptor: CompositeInterceptor,
         httpErrorHandler: HTTPErrorHandler?,
         urlSession: URLSession
@@ -47,8 +47,8 @@ public class Session {
     /// to `URLSession.dataPublisher(for:)`
     public init(
         baseURL: URL,
-        encoder: DataContentEncoder = JSONEncoder(),
-        decoder: DataContentDecoder = JSONDecoder(),
+        encoder: ContentDataEncoder = JSONEncoder(),
+        decoder: ContentDataDecoder = JSONDecoder(),
         interceptor: CompositeInterceptor = [],
         httpErrorHandler: HTTPErrorHandler? = nil,
         dataPublisher: @escaping (URLRequest) -> DataPublisher = { URLSession.shared.dataPublisher(for: $0) }

@@ -12,6 +12,6 @@ class URLRequestEncodeTests: XCTest {
         let request = try URLRequest(url: URL(string: "/")!)
             .encodedBody(body, encoder: JSONEncoder())
         
-        XCTAssertEqual(request.allHTTPHeaderFields?["Content-Type"], JSONEncoder().contentType)
+        XCTAssertEqual(request.allHTTPHeaderFields?["Content-Type"].map(ContentType.init(value:)), JSONEncoder.contentType)
     }
 }

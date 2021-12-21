@@ -11,7 +11,13 @@ public protocol DataDecoder {
 }
 
 /// A `DataEncoder` providing a `ContentType`
-public typealias DataContentEncoder = DataEncoder & ContentType
+public protocol ContentDataEncoder: DataEncoder {
+    /// a http content  type
+    static var contentType: ContentType { get }
+}
 
 /// A `DataDecoder` providing a `ContentType`
-public typealias DataContentDecoder = DataDecoder & ContentType
+public protocol ContentDataDecoder: DataDecoder {
+    /// a http content  type
+    static var contentType: ContentType { get }
+}
