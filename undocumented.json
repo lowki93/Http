@@ -1,0 +1,264 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Coder.swift",
+      "line": 5,
+      "symbol": "DataEncoder.encode(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Coder.swift",
+      "line": 10,
+      "symbol": "DataDecoder.decode(_:from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Foundation/Publisher+Validate.swift",
+      "line": 10,
+      "symbol": "Publisher.validate(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Foundation/URLRequest+Encode.swift",
+      "line": 8,
+      "symbol": "URLRequest.encodedBody(_:encoder:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Foundation/URLRequest+Encode.swift",
+      "line": 22,
+      "symbol": "URLRequest.accepting(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/HTTP/HTTPContentType.swift",
+      "line": 7,
+      "symbol": "HTTPContentType.init(value:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/HTTP/HTTPContentType.swift",
+      "line": 17,
+      "symbol": "HTTPContentType.json",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/HTTP/HTTPError.swift",
+      "line": 5,
+      "symbol": "HTTPError.statusCode",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/HTTP/HTTPError.swift",
+      "line": 7,
+      "symbol": "HTTPError.init(statusCode:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/HTTP/HTTPError.swift",
+      "line": 17,
+      "symbol": "HTTPError.badRequest",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/HTTP/HTTPError.swift",
+      "line": 19,
+      "symbol": "HTTPError.unauthorized",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/HTTP/HTTPError.swift",
+      "line": 24,
+      "symbol": "HTTPError.notFound",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/HTTP/HTTPError.swift",
+      "line": 26,
+      "symbol": "HTTPError.requestTimeout",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/HTTP/HTTPHeader.swift",
+      "line": 5,
+      "symbol": "HTTPHeader.key",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/HTTP/HTTPHeader.swift",
+      "line": 13,
+      "symbol": "HTTPHeader.accept",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/HTTP/HTTPHeader.swift",
+      "line": 14,
+      "symbol": "HTTPHeader.authentication",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/HTTP/HTTPHeader.swift",
+      "line": 15,
+      "symbol": "HTTPHeader.contentType",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Interceptor/Interceptor.swift",
+      "line": 4,
+      "symbol": "Interceptor",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Request/Request+URL.swift",
+      "line": 31,
+      "symbol": "URL.Error",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Request/Request+URL.swift",
+      "line": 32,
+      "symbol": "URL.Error.invalid(base:path:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Request/Request+URL.swift",
+      "line": 33,
+      "symbol": "URL.Error.invalid(components:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Request/Request+URL.swift",
+      "line": 38,
+      "symbol": "URLComponents.Error",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Request/Request+URL.swift",
+      "line": 39,
+      "symbol": "URLComponents.Error.invalid(base:path:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Request/Request.swift",
+      "line": 3,
+      "symbol": "Method",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Request/Request.swift",
+      "line": 4,
+      "symbol": "Method.get",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Request/Request.swift",
+      "line": 5,
+      "symbol": "Method.post",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Request/Request.swift",
+      "line": 6,
+      "symbol": "Method.put",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Request/Request.swift",
+      "line": 7,
+      "symbol": "Method.delete",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Request/Request.swift",
+      "line": 15,
+      "symbol": "Request.method",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Request/Request.swift",
+      "line": 16,
+      "symbol": "Request.body",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Request/Request.swift",
+      "line": 17,
+      "symbol": "Request.parameters",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Request/Request.swift",
+      "line": 18,
+      "symbol": "Request.headers",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Request/Request.swift",
+      "line": 20,
+      "symbol": "Request.get(_:parameters:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Request/Request.swift",
+      "line": 24,
+      "symbol": "Request.post(_:body:parameters:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Request/Request.swift",
+      "line": 29,
+      "symbol": "Request.put(_:body:parameters:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Request/Request.swift",
+      "line": 34,
+      "symbol": "Request.delete(_:parameters:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Http/Http/Sources/Http/Request/Request.swift",
+      "line": 38,
+      "symbol": "Request.headers(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/runner/work/Http/Http"
+}
