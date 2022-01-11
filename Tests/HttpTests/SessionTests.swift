@@ -117,11 +117,13 @@ class SessionTests: XCTestCase {
     
     /// helper to create a session for testing
     private func sesssionStub(interceptor: CompositeInterceptor = [], data: @escaping () -> Session.Data) -> Session {
-        Session(baseURL: baseURL, encoder: encoder, decoder: decoder, interceptor: interceptor, dataPublisher: { _ in
-            Just(data())
-                .setFailureType(to: Error.self)
-                .eraseToAnyPublisher()
-        })
+      let config = SessionConfiguration(encoder: encoder, decoder: decoder, interceptors: interceptor)
+
+      return Session(baseURL: baseURL, configuration: config, dataPublisher: { _ in
+        Just(data())
+          .setFailureType(to: Error.self)
+          .eraseToAnyPublisher()
+      })
     }
 }
 

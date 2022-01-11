@@ -1,7 +1,7 @@
 import Foundation
 
 /// A struct representing a header content type value
-public struct ContentType: Hashable, ExpressibleByStringLiteral {
+public struct HTTPContentType: Hashable, ExpressibleByStringLiteral {
     let value: String
 
     public init(value: String) {
@@ -13,6 +13,6 @@ public struct ContentType: Hashable, ExpressibleByStringLiteral {
     }
 }
 
-extension ContentType {
+extension HTTPContentType {
     public static let json: Self = "application/json"
 }

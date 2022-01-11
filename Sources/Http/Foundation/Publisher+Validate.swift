@@ -3,19 +3,19 @@
 import Foundation
 import Combine
 
-/// A function converting a HttpError in a custom Error
-public typealias HTTPErrorHandler = (HttpError, Data) throws -> Error
+/// A function converting data when a http error occur into a custom error
+public typealias DataErrorConverter = (Data) throws -> Error
 
 extension Publisher where Output == URLSession.DataTaskPublisher.Output {    
-    public func validate(_ transformer: HTTPErrorHandler? = nil) -> AnyPublisher<Output, Error> {
+    public func validate(_ converter: DataErrorConverter? = nil) -> AnyPublisher<Output, Error> {
         tryMap { output in
             do {
                 try (output.response as? HTTPURLResponse)?.validate()
                 return output
             }
             catch {
-                if let transform = transformer, let error = error as? HttpError, !output.data.isEmpty {
-                    throw try transform(error, output.data)
+                if let _ = error as? HTTPError, let convert = converter, !output.data.isEmpty {
+                    throw try convert(output.data)
                 }
                 
                 throw error

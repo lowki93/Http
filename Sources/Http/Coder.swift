@@ -13,11 +13,11 @@ public protocol DataDecoder {
 /// A `DataEncoder` providing a `ContentType`
 public protocol ContentDataEncoder: DataEncoder {
     /// a http content  type
-    static var contentType: ContentType { get }
+    static var contentType: HTTPContentType { get }
 }
 
 /// A `DataDecoder` providing a `ContentType`
 public protocol ContentDataDecoder: DataDecoder {
     /// a http content  type
-    static var contentType: ContentType { get }
+    static var contentType: HTTPContentType { get }
 }

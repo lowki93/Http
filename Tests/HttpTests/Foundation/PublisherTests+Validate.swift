@@ -9,11 +9,11 @@ class PublisherValidateTests: XCTestCase {
         cancellables = []
     }
     
-    func test_validate_responseIsError_handlerIsDefined_dataIsEmpty_transormerIsNotCalled() throws {
+    func test_validate_responseIsError_dataIsEmpty_converterIsNotCalled() throws {
         let output: URLSession.DataTaskPublisher.Output = (data: Data(), response: HTTPURLResponse.notFound)
-        let transformer: HTTPErrorHandler = { error, _ in
+        let transformer: DataErrorConverter = { _ in
             XCTFail("transformer should not be called when data is empty")
-            return error
+            throw NSError()
         }
         
         Just(output)
@@ -22,13 +22,13 @@ class PublisherValidateTests: XCTestCase {
             .store(in: &cancellables)
     }
     
-    func test_validate_responseIsError_handlerIsDefined_dataIsNotEmpty_itTransformError() throws {
+    func test_validate_responseIsError_dataIsNotEmpty_returnCustomError() throws {
         let customError = CustomError(code: 22, message: "custom message")
         let output: URLSession.DataTaskPublisher.Output = (
             data: try JSONEncoder().encode(customError),
             response: HTTPURLResponse.notFound
         )
-        let transformer: HTTPErrorHandler = { error, data in
+        let transformer: DataErrorConverter = { data in
             return try JSONDecoder().decode(CustomError.self, from: data)
         }
         

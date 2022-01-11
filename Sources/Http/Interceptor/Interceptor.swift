@@ -3,7 +3,7 @@ import Combine
 
 public typealias Interceptor = RequestInterceptor & ResponseInterceptor
 
-/// a protocol allowing to intercept a session request
+/// a protocol intercepting a session request
 public protocol RequestInterceptor {
   /// Should be called before making the request to provide modifications to `request`
   func adaptRequest<Output>(_ request: Request<Output>) -> Request<Output>

@@ -15,7 +15,7 @@ public struct Request<Output> {
   public let method: Method
   public let body: Encodable?
   public let parameters: [String: String]
-  public private(set) var headers: [Header: String] = [:]
+  public private(set) var headers: [HTTPHeader: String] = [:]
 
   public static func get<Endpoint: Path>(_ path: Endpoint, parameters: [String: String] = [:]) -> Self {
     self.init(path: path, method: .get, parameters: parameters, body: nil)
@@ -35,7 +35,7 @@ public struct Request<Output> {
     self.init(path: path, method: .delete, parameters: parameters, body: nil)
   }
 
-  public mutating func headers(_ headers: [Header: String]) -> Self {
+  public mutating func headers(_ headers: [HTTPHeader: String]) -> Self {
     self.headers.merge(headers) { $1 }
     return self
   }
