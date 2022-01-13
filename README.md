@@ -7,6 +7,18 @@ A lightweight Swift HTTP library
 First step is to build a request. You make requests by providing extension on top of `Request` type:
 
 ```swift
+extension Request {
+  static let func login(_ body: UserBody) -> Self where Output == UserResponse {
+    .post("login", body: body)
+  }
+}
+```
+
+And... voila! We defined a `login(_:)` request which will request login endpoint by sending a `UserBody` and waiting for a `UserResponse`. Now it's time to use it.
+
+You can also use an enum to define your Request path:
+
+```swift
 enum MyAppEndpoint: String, Path {
   case login
 }
@@ -17,8 +29,6 @@ extension Request {
   }
 }
 ```
-
-And... voila! We defined a `login(_:)` request which will request login endpoint by sending a `UserBody` and waiting for a `UserResponse`. Now it's time to use it.
 
 ### Sending a request
 
