@@ -32,7 +32,7 @@ class SessionTests: XCTestCase {
     
     func test_publisherFor_responseIsValid_adaptResponseThrow_itReturnAnError() {
         let output = Content(value: "adapt throw")
-        let interceptor = InterceptorStub()
+        let interceptor = InterceptorMock()
         let session = sesssionStub(
             interceptor: [interceptor],
             data: { (data: try! JSONEncoder().encode(output), response: .success) }
@@ -64,7 +64,7 @@ class SessionTests: XCTestCase {
     
     func test_publisherFor_rescue_rescueIsSuccess_itRetryRequest() {
         var isRescued = false
-        let interceptor = InterceptorStub()
+        let interceptor = InterceptorMock()
         let session = sesssionStub(interceptor: [interceptor]) {
             (data: Data(), response: isRescued ? .success : .unauthorized)
         }
@@ -95,7 +95,7 @@ class SessionTests: XCTestCase {
     
     func test_publisherFor_outputIsDecoded_itCallInterceptorReceivedResponse() {
         let output = Content(value: "hello")
-        let interceptor = InterceptorStub()
+        let interceptor = InterceptorMock()
         let session = sesssionStub(interceptor: [interceptor]) {
             (data: try! JSONEncoder().encode(output), response: .success)
         }
@@ -146,31 +146,5 @@ private extension Request {
     
     static func void() -> Self where Output == Void {
         .get(Endpoint.test)
-    }
-}
-
-private class InterceptorStub: Interceptor {
-    var rescueRequestErrorMock: ((Error) -> AnyPublisher<Void, Error>?)?
-    var receivedResponseMock: ((Any, Any) -> ())?
-    var adaptResponseMock: ((Any, Any) throws -> Any)?
-    
-    func adaptRequest<Output>(_ request: Request<Output>) -> Request<Output> {
-        request
-    }
-    
-    func rescueRequest<Output>(_ request: Request<Output>, error: Error) -> AnyPublisher<Void, Error>? {
-        rescueRequestErrorMock?(error)
-    }
-    
-    func adaptOutput<Output>(_ output: Output, for request: Request<Output>) throws -> Output {
-        guard let mock = adaptResponseMock else {
-            return output
-        }
-        
-        return try mock(output, request) as! Output
-    }
-    
-    func receivedResponse<Output>(_ result: Result<Output, Error>, for request: Request<Output>) {
-        receivedResponseMock?(result, request)
     }
 }

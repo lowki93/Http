@@ -36,6 +36,10 @@ public struct AsyncSession {
       self.asyncUrlRequest = asyncData
   }
 
+  /// Return `Output` data
+  ///
+  /// The request is validated and decoded appropriately on success.
+  /// - Returns: return the  Output on success, otherwise it's throwan  error
   public func request<Output: Decodable>(for request: Request<Output>) async throws -> Output {
     let response = try await asyncData(for: request)
     let result = Result {
@@ -48,6 +52,7 @@ public struct AsyncSession {
     return try result.get()
   }
 
+  /// Performing request which has no return value
   public func request(for request: Request<Void>) async throws {
     _ = try await asyncData(for: request)
     log(.success(()), for: request)
@@ -67,9 +72,9 @@ extension AsyncSession {
       var response = try await asyncUrlRequest(urlRequest)
       response = try validate(output: response, with: config.errorDecoder)
       let responseOuput = Response(data: response.0, request: adaptedRequest)
-      // Handle rescue
       return responseOuput
     } catch {
+      // Handle rescue
       logFailure(error, for: adaptedRequest)
       throw error
     }

@@ -12,6 +12,9 @@ public protocol RequestInterceptor {
   /// - Returns: nil if the request should not be retried. Otherwise a publisher that will be executed before
   /// retrying the request
   func rescueRequest<Output>(_ request: Request<Output>, error: Error) -> AnyPublisher<Void, Error>?
+
+  @available(macOS 12.0, iOS 15.0, *)
+  func rescueRequest<Output>(_ request: Request<Output>, error: Error) -> (() async throws -> ())?
 }
 
 /// a protocol intercepting a session response
