@@ -9,7 +9,7 @@ First step is to build a request. You make requests by providing extension on to
 ```swift
 extension Request {
   static func getUser() -> Self where Output == UserResponse {
-		.get("getUser")
+    .get("getUser")
   }
 }
 ```

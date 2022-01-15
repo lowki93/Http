@@ -2,13 +2,16 @@ import XCTest
 @testable import Http
 
 class RequestTests: BaseTest {
-
   let baseURL = URL(string: "https://google.com")!
-
+  
   enum TestEndpoint: String, Path {
     case test
   }
-
+  
+  func test_init_withPathAsString() {
+    XCTAssertEqual(Request<Void>.get("hello_world").path, "hello_world")
+  }
+  
   func test_urlFor_itAppendPathToURL() throws {
     XCTAssertEqual(
       try Request<Void>.get(TestEndpoint.test).url(for: baseURL).absoluteString,
@@ -79,5 +82,5 @@ class RequestTests: BaseTest {
 }
 
 private struct Body: Encodable {
-    
+  
 }

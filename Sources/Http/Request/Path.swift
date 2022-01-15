@@ -1,7 +1,16 @@
 import Foundation
 
-/// A RawRepresentable specialized for Request path
-/// Because we can't use typealias we use a protocol
-public protocol Path: RawRepresentable where RawValue == String {
-
+/// A Type representing a URL path
+public protocol Path {
+  var path: String { get }
 }
+
+extension Path where Self: RawRepresentable, RawValue == String {
+  public var path: String { rawValue }
+}
+
+extension String: Path {
+  public var path: String { self }
+}
+
+
