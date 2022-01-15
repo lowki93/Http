@@ -91,7 +91,7 @@ class BodyPart {
     defer { stream.close() }
 
     var encoded = Data()
-
+    dump(stream.hasBytesAvailable)
     while stream.hasBytesAvailable {
       var buffer = [UInt8](repeating: 0, count: streamBufferSize)
       let bytesRead = stream.read(&buffer, maxLength: streamBufferSize)
