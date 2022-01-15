@@ -23,14 +23,14 @@ class RequestTests: XCTestCase {
     }
     
     func test_toURLRequest_itEncodeBody() throws {
-        let request = try Request<Void>.post(TestEndpoint.test, body: Body())
+      let request = try Request<Void>.post(TestEndpoint.test, body: .encodable(Body()))
             .toURLRequest(base: baseURL, encoder: JSONEncoder())
         
         XCTAssertEqual(request.httpBody, try JSONEncoder().encode(Body()))
     }
     
     func test_toURLRequest_itFillDefaultHeaders() throws {
-        let request = try Request<Void>.post(TestEndpoint.test, body: Body())
+      let request = try Request<Void>.post(TestEndpoint.test, body: .encodable(Body()))
             .toURLRequest(base: baseURL, encoder: JSONEncoder())
         
         XCTAssertEqual(request.allHTTPHeaderFields?["Content-Type"], "application/json")
