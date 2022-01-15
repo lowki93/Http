@@ -65,18 +65,17 @@ extension AsyncSession {
   private func asyncData<Output>(for request: Request<Output>) async throws -> Response<Output> {
     let adaptedRequest = config.interceptor.adaptRequest(request)
 
-    do {
-      let urlRequest = try adaptedRequest.toURLRequest(base: baseURL, encoder: config.encoder)
-        .accepting(config.decoder)
+    let urlRequest = try adaptedRequest.toURLRequest(base: baseURL, encoder: config.encoder)
+      .accepting(config.decoder)
 
+    do {
       var response = try await asyncUrlRequest(urlRequest)
       response = try validate(output: response, with: config.errorDecoder)
       let responseOuput = Response(data: response.0, request: adaptedRequest)
       return responseOuput
     } catch {
-      // Handle rescue
       logFailure(error, for: adaptedRequest)
-      throw error
+      return try await rescue(error: error, request: request)
     }
   }
 
@@ -93,17 +92,15 @@ extension AsyncSession {
     config.interceptor.receivedResponse(response, for: request)
   }
 
-//  /// try to rescue an error while making a request and retry it when rescue suceeded
-//  private func rescue<Output>(error: Error, request: Request<Output>) throws -> AnyPublisher<Response<Output>, Error> {
-//    guard let rescue = config.interceptor.rescueRequest(request, error: error) else {
-//      throw error
-//    }
-//
-//    return rescue
-//      .map { self.dataPublisher(for: request) }
-//      .switchToLatest()
-//      .eraseToAnyPublisher()
-//  }
+  /// try to rescue an error while making a request and retry it when rescue suceeded
+  private func rescue<Output>(error: Error, request: Request<Output>) async throws -> Response<Output> {
+    guard let rescue = config.interceptor.asyncRescueRequest(request, error: error) else {
+      throw error
+    }
+
+    try await rescue()
+    return try await asyncData(for: request)
+  }
 
 }
 

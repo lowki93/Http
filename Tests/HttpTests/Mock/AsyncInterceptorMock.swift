@@ -2,7 +2,8 @@ import Foundation
 import Combine
 import Http
 
-class InterceptorMock: Interceptor {
+@available(macOS 12.0, iOS 15.0, *)
+class AsyncInterceptorMock: Interceptor {
 
   var adaptRequestCalled: Bool = false
   func adaptRequest<Output>(_ request: Request<Output>) -> Request<Output> {
@@ -17,9 +18,11 @@ class InterceptorMock: Interceptor {
     return rescueRequestErrorMock?(error)
   }
 
-  @available(macOS 12.0, iOS 15.0, *)
+  var asyncRescueRequestCalled = false
+  var asyncRescueRequestMock: (() async throws -> ())?
   func asyncRescueRequest<Output>(_ request: Request<Output>, error: Error) -> (() async throws -> ())? {
-    nil
+    asyncRescueRequestCalled = true
+    return asyncRescueRequestMock
   }
 
   var adaptOutputCalled: Bool = false

@@ -31,15 +31,18 @@ public struct CompositeInterceptor: Interceptor, ExpressibleByArrayLiteral, Sequ
   }
 
   @available(macOS 12.0, iOS 15.0, *)
-  public func rescueRequest<Output>(_ request: Request<Output>, error: Error) -> (() async throws -> ())? {
-//    let rescues = compactMap { try await $0.rescueRequest(request, error: error) }
-//
-//    guard !rescues.isEmpty else {
-//      return nil
-//    }
-//
-//    return rescues.first
-    return nil
+  public func asyncRescueRequest<Output>(_ request: Request<Output>, error: Error) -> (() async throws -> ())? {
+    let rescues = compactMap { $0.asyncRescueRequest(request, error: error) }
+
+    guard !rescues.isEmpty else {
+      return nil
+    }
+
+    return {
+      for rescue in rescues {
+        try await rescue()
+      }
+    }
   }
   
   public func adaptOutput<Output>(_ response: Output, for request: Request<Output>) throws -> Output {
