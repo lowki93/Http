@@ -3,37 +3,48 @@ import UniformTypeIdentifiers
 
 typealias Header = (name: HTTPHeader, value: String)
 
+// MARK: - EncodingCharacters
+
 enum EncodingCharacters {
   static let crlf = "\r\n"
 }
 
+// MARK: - Boundary
+
 enum Boundary {
 
   enum `Type` {
-    case initial, final
+    case initial, encapsulated, final
   }
 
   static func random() -> String {
     UUID().uuidString
   }
 
-  static func data(for type: Boundary.`Type`, boundary: String) -> Data {
-    let boundaryText: String
-
+  static func string(for type: Boundary.`Type`, boundary: String) -> String {
     switch type {
-    case .initial: boundaryText = "--\(boundary)\(EncodingCharacters.crlf)"
-    case .final: boundaryText = "\(EncodingCharacters.crlf)--\(boundary)--\(EncodingCharacters.crlf)"
+    case .initial: return "--\(boundary)\(EncodingCharacters.crlf)"
+    case .encapsulated: return "\(EncodingCharacters.crlf)--\(boundary)\(EncodingCharacters.crlf)"
+    case .final: return "\(EncodingCharacters.crlf)--\(boundary)--\(EncodingCharacters.crlf)"
     }
+  }
+
+  static func data(for type: Boundary.`Type`, boundary: String) -> Data {
+    let boundaryText = Self.string(for: type, boundary: boundary)
 
     return Data(boundaryText.utf8)
   }
 }
 
-struct BodyPart {
+// MARK: - BodyPart
+
+class BodyPart {
 
   let headers: [Header]
   let stream: InputStream
   let length: Int
+  var hasInitialBoundary = false
+  var hasFinalBoundary = false
 
   //
   // The optimal read/write buffer size in bytes for input and output streams is 1024 (1KB). For more
@@ -42,13 +53,27 @@ struct BodyPart {
   //
   private let streamBufferSize = 1024
 
+  init(headers: [Header], stream: InputStream, length: Int) {
+    self.headers = headers
+    self.stream = stream
+    self.length = length
+  }
+
   func encode(with boundary: String) throws -> Data {
     var encoded = Data()
 
-    encoded.append(Boundary.data(for: .initial, boundary: boundary))
+    if hasInitialBoundary {
+      encoded.append(Boundary.data(for: .initial, boundary: boundary))
+    } else {
+      encoded.append(Boundary.data(for: .encapsulated, boundary: boundary))
+    }
+
     encoded.append(try encodeHeader())
     encoded.append(try encodeStream())
-    encoded.append(Boundary.data(for: .final, boundary: boundary))
+
+    if hasFinalBoundary {
+      encoded.append(Boundary.data(for: .final, boundary: boundary))
+    }
 
     return encoded
   }
@@ -91,6 +116,8 @@ struct BodyPart {
 
 }
 
+// MARK: - MultipartFormData
+
 public struct MultipartFormData {
 
   private let boundary: String
@@ -109,8 +136,9 @@ public struct MultipartFormData {
     self.boundary = boundary ?? Boundary.random()
   }
 
-  public mutating func add(url: URL, name: String, fileName: String? = nil) throws {
+  public mutating func add(url: URL, name: String) throws {
     let mimeType = mimeType(from: url)
+    let fileName = url.lastPathComponent
     let headers = defineBodyPartHeader(name: name, fileName: fileName, mimeType: mimeType)
 
     guard let fileSize = try fileManager.attributesOfItem(atPath: url.path)[.size] as? NSNumber else {
@@ -136,6 +164,9 @@ public struct MultipartFormData {
 
   func encode() throws -> Data {
     var encoded = Data()
+
+    bodyParts.first?.hasInitialBoundary = true
+    bodyParts.last?.hasFinalBoundary = true
 
     for bodyPart in bodyParts {
       encoded.append(try bodyPart.encode(with: boundary))

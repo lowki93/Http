@@ -13,7 +13,7 @@ enum MyAppEndpoint: String, Path {
 
 extension Request {
   static let func login(_ body: UserBody) -> Self where Output == UserResponse {
-    .post(MyAppEndpoint.login, body: body)
+    .post(MyAppEndpoint.login, body: .encodable(body))
   }
 }
 ```
