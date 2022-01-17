@@ -11,7 +11,12 @@ extension Request {
         request.httpMethod = method.rawValue.uppercased()
         
         if let body = body {
+          switch body {
+          case .encodable(let body):
             try request.encodeBody(body, encoder: encoder)
+          case .multipart(let multipart):
+            try request.multipartBody(multipart)
+          }
         }
         
         for (header, value) in headers {
