@@ -16,6 +16,6 @@ public struct HTTPContentType: Hashable, ExpressibleByStringLiteral {
 extension HTTPContentType {
   public static let json: Self = "application/json"
   public static func multipart(boundary: String) -> Self {
-    .init(stringLiteral: "multipart/form-data; boundary=\(boundary)")
+    .init(value: "multipart/form-data; boundary=\(boundary)")
   }
 }

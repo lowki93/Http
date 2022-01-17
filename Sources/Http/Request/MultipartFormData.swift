@@ -3,18 +3,16 @@ import UniformTypeIdentifiers
 
 typealias Header = (name: HTTPHeader, value: String)
 
-// MARK: - EncodingCharacters
-
 enum EncodingCharacters {
   static let crlf = "\r\n"
 }
 
-// MARK: - Boundary
-
 enum Boundary {
 
   enum `Type` {
-    case initial, encapsulated, final
+    case initial
+    case encapsulated
+    case final
   }
 
   static func random() -> String {
@@ -23,9 +21,12 @@ enum Boundary {
 
   static func string(for type: Boundary.`Type`, boundary: String) -> String {
     switch type {
-    case .initial: return "--\(boundary)\(EncodingCharacters.crlf)"
-    case .encapsulated: return "\(EncodingCharacters.crlf)--\(boundary)\(EncodingCharacters.crlf)"
-    case .final: return "\(EncodingCharacters.crlf)--\(boundary)--\(EncodingCharacters.crlf)"
+    case .initial:
+      return "--\(boundary)\(EncodingCharacters.crlf)"
+    case .encapsulated:
+      return "\(EncodingCharacters.crlf)--\(boundary)\(EncodingCharacters.crlf)"
+    case .final:
+      return "\(EncodingCharacters.crlf)--\(boundary)--\(EncodingCharacters.crlf)"
     }
   }
 
@@ -35,8 +36,6 @@ enum Boundary {
     return Data(boundaryText.utf8)
   }
 }
-
-// MARK: - BodyPart
 
 class BodyPart {
 
@@ -87,11 +86,11 @@ class BodyPart {
   }
 
   private func encodeStream() throws -> Data {
+    var encoded = Data()
+
     stream.open()
     defer { stream.close() }
 
-    var encoded = Data()
-    dump(stream.hasBytesAvailable)
     while stream.hasBytesAvailable {
       var buffer = [UInt8](repeating: 0, count: streamBufferSize)
       let bytesRead = stream.read(&buffer, maxLength: streamBufferSize)
@@ -116,8 +115,6 @@ class BodyPart {
 
 }
 
-// MARK: - MultipartFormData
-
 /// Constructs `multipart/form-data` for uploads within an HTTP or HTTPS body.
 /// We encode the data directly in memory. It's very efficient, but can lead to memory issues if the dataset is too large (eg: a Video)
 ///
@@ -138,10 +135,7 @@ public struct MultipartFormData {
   /// - Parameters:
   ///   - fileManager: `FileManager` to use for file operation, if needed
   ///   - boundary: `String` used to separate body parts
-  public init(
-    fileManager: FileManager = .default,
-    boundary: String? = nil
-  ) {
+  public init(fileManager: FileManager = .default, boundary: String? = nil) {
     self.fileManager = fileManager
     self.boundary = boundary ?? Boundary.random()
   }
@@ -261,8 +255,6 @@ public struct MultipartFormData {
   }
 
 }
-
-// MARK: - Error
 
 extension BodyPart {
 
